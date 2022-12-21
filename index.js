@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({
-    extended: true
+        extended: true
 }))
 
 mongoose.Promise = global.Promise;
@@ -30,7 +30,7 @@ mongoose.connect(dbConfig.url)
     })
 
 app.use(cors())
-require('../B_MongoDB/routes/customer.route.js')(app);
+require('./routes/customer.route.js')(app);
 
 const server = app.listen(3000, ()=>{
     let port = server.address().port
