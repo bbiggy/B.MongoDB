@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const { count } = require('console')
 
-const dbConfig = require('./config/mongoose.config.js')
+const dbConfig = require('./config/mongodb.config.js')
 const Customer = require('./models/customer.js')
 
 const cors = require('cors')
