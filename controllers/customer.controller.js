@@ -1,4 +1,4 @@
-const Customer = require('../models/customer.js')
+const customer = require('../models/customer.js')
 
 exports.index = (req, res) => {
     res.send('<h1>Customer Application</h1><a href="/api/customer">รายชื่อลูกค้า</a>')
