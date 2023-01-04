@@ -41,7 +41,7 @@ exports.findById = (req, res) => {
     })
 }
 
-exports.delete = (req. res) => {
+exports.delete = (req, res) => {
     customer.findByIdAndUpdate(req.params.customerId)
     .then(data => {
         if(!data){
