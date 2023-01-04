@@ -4,55 +4,66 @@ exports.index = (req, res) => {
     res.send('<h1>Customer Application</h1><a href="/api/customer">รายชื่อลูกค้า</a>')
 }
 
-exports.findAll = (req, res) =>{
+exports.findAll = (req,res) => {
     customer.find().then(data => {
         res.json(data)
     }).catch(err => {
         res.status(500).send({
-            msg: err.message
+            msg:err. message 
         })
     })
 }
-
-exports.create = (req, res) => {
+exports.create = (req, res) =>{
     const c = new customer(req.body)
-
-    c.sae().then(data => {
+    c.save().then(data =>{
         res.json(data)
     }).catch(err => {
         return res.status(500).json({
-            msg: "ไม่สามารถเพิ่มข้อมูลได้ เนื่องจาก : " + err.message
+            msg: "ไม่สามารถเพิ่มข้อมูลได้ เนื่องจาก :" + err.message
         })
     })
 }
-
-exports.findById = (req, res) => {
+exports.findById = (req, res) =>{
     customer.findById(req.params.customerId).then(data=>{
         if(!data){
             return res.status(404).json({
-                msg: "ไม่พบ Record รหัส : " + req.params.customerId
+                msg: "ไม่พบ Record รหัส :" + req.params.customerId
+            })
+        }res.json(data)
+    }).catch(err=>{
+        return res.status(500).json({
+            msg: "เกิดข้อผิดพลาด เนื่องจาก :" + err.message
+        })
+    })
+}
+exports.update = (req, res) =>{
+    customer.findByIdAndUpdate(req.params.customerId,{$set:req.body},{new: true})
+    .then(data =>{
+        if(!data){
+            return res.status(404).json({
+                msg: "ไม่พบ Record รหัส :" + req.params.customerId
             })
         }
         res.json(data)
     }).catch(err => {
         return res.status(500).json({
-            msg: "เกิดข้อผิดพลาด เนื่องจาก : " + err.message
+            msg: "เกิดข้อผิดพลาด เนื่องจาก :" + err.message
         })
     })
 }
-
-exports.delete = (req, res) => {
+exports.delete = (req,res) => {
     customer.findByIdAndUpdate(req.params.customerId)
-    .then(data => {
+    .then(data =>{
         if(!data){
             return res.status(404).json({
-                msg: "ไม่พบ Record รหัส : " + req.params.customerId
+                msg: "ไม่พบ Record รหัส :" + req.params.customerId
             })
         }
         res.json({ msg: "ลบข้อมูลเรียบร้อยเเล้ว!!!"})
     }).catch(err => {
         return res.status(500).json({
-            msg: "ไม่สามารถลบข้อมูลได้ เนื่องจาก : " + err.message
+            msg: "เกิดข้อผิดพลาด เนื่องจาก :" + err.message
         })
     })
+
 }
