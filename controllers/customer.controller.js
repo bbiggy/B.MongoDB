@@ -13,3 +13,46 @@ exports.findAll = (req, res) =>{
         })
     })
 }
+
+exports.create = (req, res) => {
+    const c = new customer(req.body)
+
+    c.sae().then(data => {
+        res.json(data)
+    }).catch(err => {
+        return res.status(500).json({
+            msg: "ไม่สามารถเพิ่มข้อมูลได้ เนื่องจาก : " + err.message
+        })
+    })
+}
+
+exports.findById = (req, res) => {
+    customer.findById(req.params.customerId).then(data=>{
+        if(!data){
+            return res.status(404).json({
+                msg: "ไม่พบ Record รหัส : " + req.params.customerId
+            })
+        }
+        res.json(data)
+    }).catch(err => {
+        return res.status(500).json({
+            msg: "เกิดข้อผิดพลาด เนื่องจาก : " + err.message
+        })
+    })
+}
+
+exports.delete = (req. res) => {
+    customer.findByIdAndUpdate(req.params.customerId)
+    .then(data => {
+        if(!data){
+            return res.status(404).json({
+                msg: "ไม่พบ Record รหัส : " + req.params.customerId
+            })
+        }
+        res.json({ msg: "ลบข้อมูลเรียบร้อยเเล้ว!!!"})
+    }).catch(err => {
+        return res.status(500).json({
+            msg: "ไม่สามารถลบข้อมูลได้ เนื่องจาก : " + err.message
+        })
+    })
+}
